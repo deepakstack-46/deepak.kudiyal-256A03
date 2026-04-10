@@ -33,6 +33,6 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'accounts/login.html', {'form': form})
 
-def logout_view(request):
+def user_logout(request):
     logout(request)
     return redirect('login')
