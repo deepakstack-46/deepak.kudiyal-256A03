@@ -14,17 +14,18 @@ def position_list(request):
     positions = Position.objects.all()
     return render(request, 'positions/position_list.html', {'positions': positions})
 
-@login_required
 def position_create(request):
     if not request.user.groups.filter(name='Administrator').exists():
         messages.error(request, 'You are not authorized to view this page.')
         return redirect('home')
 
     if request.method == 'POST':
-        name = request.POST.get('name')
-        if name:
-            Position.objects.create(name=name)
-            messages.success(request=, 'Position created successfully.')
+        print(request.POST)
+        position_name = request.POST.get('position_name')
+        print(position_name)
+        if position_name:
+            Position.objects.create(position_name=position_name)
+            
             return redirect('position_list')
     return render(request, 'positions/position_form.html')
 
@@ -36,11 +37,11 @@ def position_update(request, pk):
 
     position = get_object_or_404(Position, pk=pk)
     if request.method == 'POST':
-        name = request.POST.get('name')
-        if name:
-            position.name = name
+        position_name = request.POST.get('position_name')
+        if position_name:
+            position.position_name = position_name
             position.save()
-            messages.success(request, 'Position updated successfully.')
+            
             return redirect('position_list')
     return render(request, 'positions/position_form.html', {'position': position})
 
