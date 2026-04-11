@@ -1,0 +1,13 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Confirm Delete Position</title>
+</html>
+<body>
+    <h2>Delete Position</h2>
+    <p>Are you sure you want to delete the position "{{ position.position_name }}"</strong>?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'position_list' %}">Cancel</a>
+</body>
