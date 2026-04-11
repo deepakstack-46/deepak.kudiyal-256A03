@@ -1,3 +1,58 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Position
+from  django.contrib import messages
 
 # Create your views here.
+
+@login_required
+def position_list(request):
+    if not request.user.groups.filter(name='Administrator').exists():
+        messages.error(request, 'You do not have permission to view this page.')
+        return redirect('home')
+
+    positions = Position.objects.all()
+    return render(request, 'positions/position_list.html', {'positions': positions})
+
+@login_required
+def position_create(request):
+    if not request.user.groups.filter(name='Administrator').exists():
+        messages.error(request, 'You are not authorized to view this page.')
+        return redirect('home')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        if name:
+            Position.objects.create(name=name)
+            messages.success(request=, 'Position created successfully.')
+            return redirect('position_list')
+    return render(request, 'positions/position_form.html')
+
+@login_required
+def position_update(request, pk):
+    if not request.user.groups.filter(name='Administrator').exists():
+        messages.error(request, 'You are not authorized to view this page.')
+        return redirect('home')
+
+    position = get_object_or_404(Position, pk=pk)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        if name:
+            position.name = name
+            position.save()
+            messages.success(request, 'Position updated successfully.')
+            return redirect('position_list')
+    return render(request, 'positions/position_form.html', {'position': position})
+
+@login_required
+def position_delete(request, pk):
+    if not request.user.groups.filter(name='Administrator').exists():
+        messages.error(request, 'You are not authorized to view this page.')
+        return redirect('home')
+
+    position = get_object_or_404(Position, pk=pk)
+    if request.method == 'POST':
+        position.delete()
+        messages.success(request, 'Position deleted successfully.')
+        return redirect('position_list')
+    return render(request, 'positions/position_confirm_delete.html', {'position': position})
