@@ -13,14 +13,14 @@
     <a href="{% url 'position_create' %}">Create New Position</a>
     <table border="1">
         <tr>
-            <th>Name</th>
-            <th>Description</th>
+            <th>ID</th>
+            <th>Position Name</th>
             <th>Actions</th>
         </tr>
         {% for position in positions %}
         <tr>
-            <td>{{ position.name }}</td>
-            <td>{{ position.description }}</td>
+            <td>{{ position.id }}</td>
+            <td>{{ position.position_name }}</td>
             <td>
                 <a href="{% url 'position_update' position.pk %}">Edit</a> |
                 <a href="{% url 'position_delete' position.pk %}">Delete</a>
