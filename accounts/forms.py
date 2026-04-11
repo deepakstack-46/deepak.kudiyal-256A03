@@ -42,7 +42,7 @@ class RegistrationForm(UserCreationForm):
             user.save()
         return user
 
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Email')
+class LoginForm(forms.Form):
+    username = forms.EmailField(label='Email')
     password = forms.CharField(widget=forms.PasswordInput)
 
