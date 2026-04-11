@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if position %}Edit Position{% else %}Create Position{% endif %}</title>
+</head>
+<body>
+    <h2>{% if position %}Edit Position{% else %}Create Position{% endif %}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label for="position_name">Position Name:</label><br>
+            <input type="text"  name="position_name" value="{% if position %}{{ position.position_name }}{% endif %}" required>
+        </p>
+        <button type="submit">{% if position %}Update{% else %}Create{% endif %}</button>
+        
+    </form>
+    <br>
+    <a href="{% url 'position_list' %}">Back to Position List</a>
+
+</body>
+</html>
