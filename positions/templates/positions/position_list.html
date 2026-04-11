@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Position List</title>
+</head>
+<body>
+    <h2>Position List</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:green;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'position_create' %}">Create New Position</a>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for position in positions %}
+        <tr>
+            <td>{{ position.name }}</td>
+            <td>{{ position.description }}</td>
+            <td>
+                <a href="{% url 'position_update' position.pk %}">Edit</a> |
+                <a href="{% url 'position_delete' position.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'home' %}">Back to Home</a>
+
+</body>
+</html>
