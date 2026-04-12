@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Register for Event
+    </title>
+</head>
+<body>
+    <h2>Register for {{ event.name }}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Choose a Position:</label>
+            <select name="position" required>
+                {% for position in positions %}
+                    <option value="{{ position.pk }}">{{ position.position_name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <button type="submit">Register</button>
+    </form>
+    <br>
+    <a href="{% url 'event_list' %}">Back to Events</a>
+</body>
+</html>
