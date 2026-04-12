@@ -40,6 +40,10 @@ class RegistrationForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
+            role = self.cleaned_data.get('role')
+            from django.contrib.auth.models import Group
+            group, _ = Group.objects.get_or_create(name=role)
+            user.groups.add(group)
         return user
 
 class LoginForm(forms.Form):
