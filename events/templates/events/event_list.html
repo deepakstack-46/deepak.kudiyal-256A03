@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events</title>
+</head>
+<body>
+    <h2>Events</h2>
+    {% if messages %}
+        {% for messages in messages %}
+            <p style="color: green;">{{ message }}</p>\
+        {% endfor %}
+    {% endif %}
+    {% if request.user.groups.all.0.name == 'Administrator' %}
+        <a href="{% url 'event_create' %}">Create New Event</a>
+    {% endif %}
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.description }}</td>
+            <td>{{ event.date_start }} {{ event.time_start }}</td>
+            <td>{{ event.date_end }} {{ event.time_end }}</td>
+            <td>
+                {% if request.user.groups.all.0.name == 'Administrator' %}
+                    <a href="{% url 'event_update' event.pk %}">Edit</a>
+                    <a href="{% url 'event_delete' event.pk %}">Delete</a>
+                {% endif %}
+                {% if event.id in user_registrations %}
+                    <a href="{% url 'event_unregister' event.pk %}">Unregister</a>
+                {% else %}
+                    {% if request.user.groups.all.0.name != 'Administrator' %}
+                        <a href="{% url 'event_register' event.pk %}">Register</a>
+                    {% endif %}
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
