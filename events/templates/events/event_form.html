@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if event %}Edit Event{% else %}Create Event{% endif %}</title>
+</head>
+<body>
+    <h2>{% if event %}Edit Event{% else %}Create Event{% endif %}</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Event Name:</label>
+            <input type="text" name="name" value="{% if event %}{{ event.name }}{% endif %}" required>
+        </p>
+        <p>
+            <label>Description:</label>
+            <textarea name="description" required>{% if event %}{{ event.description }}{% endif %}</textarea>
+        </p>
+        <p>
+            <label>Start Date:</label>
+            <input type="date" name="date_start" value="{% if event %}{{ event.date_start }}{% endif %}" required>
+        </p>
+        <p>
+            <label>End Date:</label>
+            <input type="date" name="date_end" value="{% if event %}{{ event.date_end }}{% endif %}" required>
+        </p>
+        <p>
+            <label>Start Time:</label>
+            <input type="time" name="time_start" value="{% if event %}{{ event.time_start }}{% endif %}" required>
+        </p>
+        <p>
+            <label>End Time:</label>
+            <input type="time" name="time_end" value="{% if event %}{{ event.time_end }}{% endif %}" required>
+        </p>
+        <button type="submit">{% if event %}Update{% else %}Create{% endif %}</button>
+    </form>
+    <br>
+    <a href="{% url 'event_list' %}">Back to Events</a>
+</body>
+</html>
