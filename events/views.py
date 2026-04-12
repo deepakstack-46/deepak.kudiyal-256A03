@@ -11,15 +11,15 @@ def event_list(request):
     today = timezone.now().date()
     events = Event.objects.filter(date_end__gte=today).order_by('date_start')
     user_registrations = EventRegistration.objects.filter(user=request.user).values_list('event_id', flat=True)
-    return render(request, 'events/events_list.html', {
+    return render(request, 'events/event_list.html', {
         'events': events,
-        'user_registration': user_registrations
+        'user_registrations': user_registrations
 
     })
 
 @login_required
 def event_create(request):
-    if not request.user.groups.filter(name='administrator').exists():
+    if not request.user.groups.filter(name='Administrator').exists():
         messages.error(request, 'Yor are not authorized to view this page')
         return redirect('home')
     if request.method == 'POST':
@@ -39,7 +39,25 @@ def event_create(request):
         )
         messages.success(request, 'Event created successfully.')
         return redirect('event_list')
-    return render(request, 'events/events_form.html')
+    return render(request, 'events/event_form.html')
+
+@login_required
+def event_update(request, pk):
+    if not request.user.groups.filter(name='Administrator').exists() and not request.user.groups.filter(name='Member').exists():
+        messages.error(request, 'You are not authorized to view this page.')
+        return redirect('home')
+    event = get_object_or_404(Event, pk=pk)
+    if request.method == 'POST':
+        event.name = request.POST.get('name')
+        event.description = request.POST.get('description')
+        event.date_start = request.POST.get('date_start')
+        event.date_end = request.POST.get('date_end')
+        event.time_start = request.POST.get('time_start')
+        event.time_end = request.POST.get('time_end')
+        event.save()
+        messages.success(request, 'Event updated successfully.')
+        return redirect('event_list')
+    return render(request, 'events/event_form.html', {'event': event})
 
 @login_required
 def event_delete(request, pk):
