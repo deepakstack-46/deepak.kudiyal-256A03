@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h2>Welcome to Happy Camp</h2>
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Home - Happy Camp{% endblock %}
+
+{% block content %}
+    <h2>Welcome to Happy Camp 🏕️</h2>
+
+    {% if user.groups.all.0.name == 'Administrator' %}
+        <div class="card-grid">
+            <a href="{% url 'event_list' %}" class="card">
+                <h3>📅 Manage Events</h3>
+                <p>Create, update and delete events</p>
+            </a>
+            <a href="{% url 'position_list' %}" class="card">
+                <h3>🎯 Manage Positions</h3>
+                <p>Create, update and delete positions</p>
+            </a>
+            <a href="{% url 'user_list' %}" class="card">
+                <h3>👥 User List</h3>
+                <p>View all users and their roles</p>
+            </a>
+            <a href="{% url 'event_all' %}" class="card">
+                <h3>📋 All Events</h3>
+                <p>View all past, present and upcoming events</p>
+            </a>
+            <a href="{% url 'event_registrants' %}" class="card">
+                <h3>📝 Event Registrants</h3>
+                <p>View events and their registrants</p>
+            </a>
+        </div>
+    {% elif user.groups.all.0.name == 'Member' %}
+        <div class="card-grid">
+            <a href="{% url 'event_list' %}" class="card">
+                <h3>View Events</h3>
+                <p>Browse and register for events</p>
+            </a>
+            <a href="{% url 'event_upcoming' %}" class="card">
+                <h3>Upcoming Events</h3>
+                <p>View all upcoming events</p>
+            </a>
+            <a href="{% url 'event_registered' %}" class="card">
+                <h3>My Events</h3>
+                <p>View events you are registered for</p>
+            </a>
+            <a href="{% url 'event_registrants' %}" class="card">
+                <h3>Event Registrants</h3>
+                <p>View events and their registrants</p>
+            </a>
+        </div>
+    {% elif user.groups.all.0.name == 'Volunteer' %}
+        <div class="card-grid">
+            <a href="{% url 'event_list' %}" class="card">
+                <h3>View Events</h3>
+                <p>Browse and register for events</p>
+            </a>
+            <a href="{% url 'event_upcoming' %}" class="card">
+                <h3>Upcoming Events</h3>
+                <p>View all upcoming events</p>
+            </a>
+            <a href="{% url 'event_registered' %}" class="card">
+                <h3>✅ My Events</h3>
+                <p>View events you are registered for</p>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
