@@ -1,35 +1,80 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <h2>Create Account</h2>
-    {% if messages %}
-        {% for message in messages %}
-            <p style="color:red;">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-    <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                    {% for error in field.errors %}
-                        <span style="color:red;">{{ error }}</span>
-                    {% endfor %}
-                {% endif %}
-            </p>
-        {% endfor %}
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-                <p style="color:red;">{{ error }}</p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Register - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="login-box" style="max-width:520px;">
+        <h2>Create Account 🏕️</h2>
+        <p>Join Happy Camp as a volunteer</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
             {% endfor %}
         {% endif %}
-        <button type="submit">Register</button>
-    </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
-</body>
-</html>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div class="form-group">
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                    {% for error in form.first_name.errors %}
+                        <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                    {% for error in form.last_name.errors %}
+                        <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+                {% for error in form.phone.errors %}
+                    <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.role.label_tag }}
+                {{ form.role }}
+                {% for error in form.role.errors %}
+                    <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div class="form-group">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    {% for error in form.password1.errors %}
+                        <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    {% for error in form.password2.errors %}
+                        <span style="color:red; font-size:0.85rem;">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn-login">Create Account</button>
+        </form>
+        <div class="login-footer">
+            Already have an account? <a href="{% url 'login' %}">Login here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
