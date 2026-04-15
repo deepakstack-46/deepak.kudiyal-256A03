@@ -3,64 +3,90 @@
 {% block title %}Home - Happy Camp{% endblock %}
 
 {% block content %}
-    <h2>Welcome to Happy Camp 🏕️</h2>
-
+<div class="welcome-header">
+    <div>
+        <h1>Welcome back, {{ user.first_name }}!👤</h1>
+        <p>Here's what you can do today as a <strong>{{ user.groups.all.0.name }}</strong></p>
+    </div>
+    <div class="welcome-brand">
+    <h2>Happy Camp ⛺</h2>
     {% if user.groups.all.0.name == 'Administrator' %}
-        <div class="card-grid">
-            <a href="{% url 'event_list' %}" class="card">
-                <h3>📅 Manage Events</h3>
-                <p>Create, update and delete events</p>
-            </a>
-            <a href="{% url 'position_list' %}" class="card">
-                <h3>🎯 Manage Positions</h3>
-                <p>Create, update and delete positions</p>
-            </a>
-            <a href="{% url 'user_list' %}" class="card">
-                <h3>👥 User List</h3>
-                <p>View all users and their roles</p>
-            </a>
-            <a href="{% url 'event_all' %}" class="card">
-                <h3>📋 All Events</h3>
-                <p>View all past, present and upcoming events</p>
-            </a>
-            <a href="{% url 'event_registrants' %}" class="card">
-                <h3>📝 Event Registrants</h3>
-                <p>View events and their registrants</p>
-            </a>
-        </div>
+        <p>Event Administration</p>
     {% elif user.groups.all.0.name == 'Member' %}
-        <div class="card-grid">
-            <a href="{% url 'event_list' %}" class="card">
-                <h3>View Events</h3>
-                <p>Browse and register for events</p>
-            </a>
-            <a href="{% url 'event_upcoming' %}" class="card">
-                <h3>Upcoming Events</h3>
-                <p>View all upcoming events</p>
-            </a>
-            <a href="{% url 'event_registered' %}" class="card">
-                <h3>My Events</h3>
-                <p>View events you are registered for</p>
-            </a>
-            <a href="{% url 'event_registrants' %}" class="card">
-                <h3>Event Registrants</h3>
-                <p>View events and their registrants</p>
-            </a>
-        </div>
-    {% elif user.groups.all.0.name == 'Volunteer' %}
-        <div class="card-grid">
-            <a href="{% url 'event_list' %}" class="card">
-                <h3>View Events</h3>
-                <p>Browse and register for events</p>
-            </a>
-            <a href="{% url 'event_upcoming' %}" class="card">
-                <h3>Upcoming Events</h3>
-                <p>View all upcoming events</p>
-            </a>
-            <a href="{% url 'event_registered' %}" class="card">
-                <h3>✅ My Events</h3>
-                <p>View events you are registered for</p>
-            </a>
-        </div>
+        <p>Event Management</p>
+    {% else %}
+        <p>Volunteer Portal</p>
     {% endif %}
+</div>
+</div>
+{% if user.groups.all.0.name == 'Administrator' %}
+    <div class="card-grid">
+        <a href="{% url 'event_list' %}" class="card">
+            <span class="card-icon">📅</span>
+            <h3>Manage Events</h3>
+            <p>Create, update and delete events for volunteers</p>
+        </a>
+        <a href="{% url 'position_list' %}" class="card">
+            <span class="card-icon">🎯</span>
+            <h3>Manage Positions</h3>
+            <p>Create, update and delete volunteer positions</p>
+        </a>
+        <a href="{% url 'user_list' %}" class="card">
+            <span class="card-icon">👥</span>
+            <h3>User List</h3>
+            <p>View all users and their assigned roles</p>
+        </a>
+        <a href="{% url 'event_all' %}" class="card">
+            <span class="card-icon">📋</span>
+            <h3>All Events</h3>
+            <p>View all past, present and upcoming events</p>
+        </a>
+        <a href="{% url 'event_registrants' %}" class="card">
+            <span class="card-icon">📝</span>
+            <h3>Event Registrants</h3>
+            <p>View events and all registered volunteers</p>
+        </a>
+    </div>
+{% elif user.groups.all.0.name == 'Member' %}
+    <div class="card-grid">
+        <a href="{% url 'event_list' %}" class="card">
+            <span class="card-icon">📅</span>
+            <h3>View Events</h3>
+            <p>Browse and register for upcoming events</p>
+        </a>
+        <a href="{% url 'event_upcoming' %}" class="card">
+            <span class="card-icon">🔜</span>
+            <h3>Upcoming Events</h3>
+            <p>View all upcoming events in the system</p>
+        </a>
+        <a href="{% url 'event_registered' %}" class="card">
+            <span class="card-icon">✅</span>
+            <h3>My Events</h3>
+            <p>View events you are currently registered for</p>
+        </a>
+        <a href="{% url 'event_registrants' %}" class="card">
+            <span class="card-icon">📝</span>
+            <h3>Event Registrants</h3>
+            <p>View events and all registered volunteers</p>
+        </a>
+    </div>
+{% elif user.groups.all.0.name == 'Volunteer' %}
+    <div class="card-grid">
+        <a href="{% url 'event_list' %}" class="card">
+            <span class="card-icon">📅</span>
+            <h3>View Events</h3>
+            <p>Browse and register for upcoming events</p>
+        </a>
+        <a href="{% url 'event_upcoming' %}" class="card">
+            <span class="card-icon">🔜</span>
+            <h3>Upcoming Events</h3>
+            <p>View all upcoming events in the system</p>
+        </a>
+        <a href="{% url 'event_registered' %}" class="card">
+            <span class="card-icon">✅</span>
+            <h3>My Events</h3>
+            <p>View events you are currently registered for</p>
+        </a>
+    </div>
+{% endif %}
 {% endblock %}
