@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v3
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.12'
+
+        - name: Install uv
+          run: pip install uv
+
+        - name: Install dependencies
+          run: uv sync
+
+        - name: Run tests with coverage
+          run: |
+            uv run coverage run manage.py test
+            uv run coverage report --fail-under=50
+
+    deploy:
+        needs: test
+        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/main'
+
+        steps:
+        - uses: actions/checkout@v3
+
+        - name: Build Docker-image 
+          run: docker build -t happy_camp .
