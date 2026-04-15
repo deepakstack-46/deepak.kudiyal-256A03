@@ -1,0 +1,16 @@
+[run]
+source =
+    accounts
+    events
+    positions
+    reports
+    happy_camp
+
+omit =
+    */tests.py
+    */migrations/*
+    */admin.py
+    */apps.py
+    */urls.py
+    */__init__.py
+    manage.py
