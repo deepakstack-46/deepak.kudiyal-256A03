@@ -1,27 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Registered Events</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}My Registered Events - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="page-header">
     <h2>My Registered Events</h2>
-    <table border="1">
-        <tr>
-            <th>Event Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Position</th>
-        </tr>
-        {% for registration in registrations %}
-        <tr>
-            <td>{{ registration.event.name }}</td>
-            <td>{{ registration.event.date_start }} {{ registration.event.time_start }}</td>
-            <td>{{ registration.event.date_end }} {{ registration.event.time_end }}</td>
-            <td>{{ registration.position.position_name }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
-</body>
-</html>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Position</th>
+    </tr>
+    {% for registration in registrations %}
+    <tr>
+        <td><strong>{{ registration.event.name }}</strong></td>
+        <td>{{ registration.event.date_start }} {{ registration.event.time_start }}</td>
+        <td>{{ registration.event.date_end }} {{ registration.event.time_end }}</td>
+        <td><span class="badge-registered">{{ registration.position.position_name }}</span></td>
+    </tr>
+    {% empty %}
+        <tr><td colspan="4">You are not registered for any events.</td></tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+{% endblock %}
