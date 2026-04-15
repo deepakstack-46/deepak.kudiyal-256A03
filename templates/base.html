@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    {% block navbar %}
     <nav class="navbar">
         <a href="{% url 'home' %}" class="navbar-brand">Happy Camp</a>
         {% if user.is_authenticated %}
@@ -15,6 +16,8 @@
             <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
         {% endif %}
     </nav>
+
+    {% endblock%}
     <div class="container">
         {% if messages %}
             {% for message in messages %}
