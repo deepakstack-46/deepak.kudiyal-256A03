@@ -1,50 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Events</title>
-</head>
-<body>
-    <h2>Events</h2>
-    {% if messages %}
-        {% for messages in messages %}
-            <p style="color: green;">{{ message }}</p>\
-        {% endfor %}
-    {% endif %}
-    {% if request.user.groups.all.0.name == 'Administrator' %}
-        <a href="{% url 'event_create' %}">Create New Event</a>
-    {% endif %}
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Actions</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.name }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.date_start }} {{ event.time_start }}</td>
-            <td>{{ event.date_end }} {{ event.time_end }}</td>
-            <td>
-                {% if request.user.groups.all.0.name == 'Administrator' %}
-                    <a href="{% url 'event_update' event.pk %}">Edit</a>
-                    <a href="{% url 'event_delete' event.pk %}">Delete</a>
-                {% endif %}
-                {% if event.id in user_registrations %}
-                    <a href="{% url 'event_unregister' event.pk %}">Unregister</a>
-                {% else %}
-                    {% if request.user.groups.all.0.name != 'Administrator' %}
-                        <a href="{% url 'event_register' event.pk %}">Register</a>
-                    {% endif %}
-                {% endif %}
-            </td>
+{% extends 'base.html' %}
 
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
-</body>
-</html>
+{% block title %}Events - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>📅 Events</h2>
+    {% if request.user.groups.all.0.name == 'Administrator' %}
+        <a href="{% url 'event_create' %}" class="btn btn-primary">+ Create New Event</a>
+    {% endif %}
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+        <td><strong>{{ event.name }}</strong></td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.date_start }} {{ event.time_start }}</td>
+        <td>{{ event.date_end }} {{ event.time_end }}</td>
+        <td>
+            {% if event.id in user_registrations %}
+                <span class="badge-registered">✅ Registered</span>
+            {% else %}
+                <span class="badge-not-registered">Not Registered</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if request.user.groups.all.0.name == 'Administrator' %}
+                <a href="{% url 'event_update' event.pk %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'event_delete' event.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+            {% if event.id in user_registrations %}
+                <a href="{% url 'event_unregister' event.pk %}" class="btn btn-danger">Unregister</a>
+            {% else %}
+                {% if request.user.groups.all.0.name != 'Administrator' %}
+                    <a href="{% url 'event_register' event.pk %}" class="btn btn-success">Register</a>
+                {% endif %}
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+        <tr><td colspan="6">No events found.</td></tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+{% endblock %}
