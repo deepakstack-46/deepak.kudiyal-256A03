@@ -1,27 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upcoming Events</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Upcoming Events - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="page-header">
     <h2>Upcoming Events</h2>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-        </tr>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.name }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.date_start }} {{ event.time_start }}</td>
-            <td>{{ event.date_end }} {{ event.time_end }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
-</body>
-</html>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <tr>
+        <th>Event Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+    </tr>
+    {% for event in events %}
+    <tr>
+        <td><strong>{{ event.name }}</strong></td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.date_start }} {{ event.time_start }}</td>
+        <td>{{ event.date_end }} {{ event.time_end }}</td>
+    </tr>
+    {% empty %}
+        <tr><td colspan="4">No upcoming events found.</td></tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+{% endblock %}
