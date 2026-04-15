@@ -1,35 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Position List</title>
-</head>
-<body>
-    <h2>Position List</h2>
-    {% if messages %}
-        {% for message in messages %}
-            <p style="color:green;">{{ message }}</p>
-        {% endfor %}
-    {% endif %}
-    <a href="{% url 'position_create' %}">Create New Position</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Position Name</th>
-            <th>Actions</th>
-        </tr>
-        {% for position in positions %}
-        <tr>
-            <td>{{ position.id }}</td>
-            <td>{{ position.position_name }}</td>
-            <td>
-                <a href="{% url 'position_update' position.pk %}">Edit</a> |
-                <a href="{% url 'position_delete' position.pk %}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}Positions - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>🎯 Positions</h2>
+    <a href="{% url 'position_create' %}" class="btn btn-primary">+ Add Position</a>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Position Name</th>
+        <th>Actions</th>
+    </tr>
+    {% for position in positions %}
+    <tr>
+        <td>{{ position.id }}</td>
+        <td>{{ position.position_name }}</td>
+        <td>
+            <a href="{% url 'position_update' position.pk %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'position_delete' position.pk %}" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+        <tr><td colspan="3">No positions found.</td></tr>
+    {% endfor %}
+</table>
+
+<a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+{% endblock %}
