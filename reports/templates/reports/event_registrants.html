@@ -1,31 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Event Registrants</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Event Registrants - Happy Camp{% endblock %}
+
+{% block content %}
+<div class="page-header">
     <h2>Event Registrants</h2>
-    <a href="?filter=upcoming">Upcoming Events</a> |
-    <a href="?filter=current">Current Events</a>
-    <br><br>
-    {% for event in events %}
-        <h3>{{ event.name }} ({{ event.date_start }} - {{ event.date_end }})</h3>
-        <table border="1">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Position</th>
-            </tr>
-            {% for registration in event.eventregistration_set.all %}
-            <tr>
-                <td>{{ registration.user.first_name }} {{ registration.user.last_name }}</td>
-                <td>{{ registration.user.email }}</td>
-                <td>{{ registration.position.position_name }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
+    <div>
+        <a href="?filter=upcoming" class="btn btn-primary">Upcoming</a>
+        <a href="?filter=current" class="btn btn-warning">Current</a>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert">{{ message }}</div>
     {% endfor %}
-    <a href="{% url 'home' %}">Back to Home</a>
-</body>
-</html>
+{% endif %}
+
+{% for event in events %}
+    <h3 style="color:#4a235a; margin:25px 0 10px;">{{ event.name }} ({{ event.date_start }} - {{ event.date_end }})</h3>
+    <table>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Position</th>
+        </tr>
+        {% for registration in event.eventregistration_set.all %}
+        <tr>
+            <td>{{ registration.user.first_name }} {{ registration.user.last_name }}</td>
+            <td>{{ registration.user.email }}</td>
+            <td><span class="badge-registered">{{ registration.position.position_name }}</span></td>
+        </tr>
+        {% empty %}
+            <tr><td colspan="3">No registrants for this event.</td></tr>
+        {% endfor %}
+    </table>
+{% empty %}
+    <p>No events found.</p>
+{% endfor %}
+
+<a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+{% endblock %}
