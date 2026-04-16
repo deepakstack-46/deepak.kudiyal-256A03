@@ -12,7 +12,7 @@ COPY pyproject.toml .
 COPY . .
 
 RUN pip install uv
-RUN uv sync
+RUN uv sync --no-cache
 
 EXPOSE 8000
 
