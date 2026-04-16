@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="form-container">
-    <h2>📋 Register for Event</h2>
+    <h2>Register for Event 📋 </h2>
     <p>{{ event.name }}</p>
 
     <form method="POST">
@@ -19,6 +19,6 @@
         </div>
         <button type="submit" class="btn-login">Register</button>
     </form>
-    <a href="{% url 'event_list' %}" class="back-link">← Back to Events</a>
+    <a href="{% url 'event_list' %}" class="back-link">Back to Events</a>
 </div>
 {% endblock %}

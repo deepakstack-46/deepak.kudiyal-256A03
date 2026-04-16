@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="form-container" style="max-width:650px;">
-    <h2>{% if event %}✏️ Edit Event{% else %}📅 Create Event{% endif %}</h2>
+    <h2>{% if event %}Edit Event ✏️{% else %}Create Event 📅 {% endif %}</h2>
     <p>{% if event %}Update event details{% else %}Fill in the details for the new event{% endif %}</p>
 
     <form method="POST">

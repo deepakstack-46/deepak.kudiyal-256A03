@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="page-header">
-    <h2>📅 Events</h2>
+    <h2>Events 📅 </h2>
     {% if request.user.groups.all.0.name == 'Administrator' %}
         <a href="{% url 'event_create' %}" class="btn btn-primary">+ Create New Event</a>
     {% endif %}
@@ -28,9 +28,9 @@
         <td>{{ event.date_end }} {{ event.time_end }}</td>
         <td>
             {% if event.id in user_registrations %}
-                <span class="badge-registered">✅ Registered</span>
+                <span class="badge-registered">Registered ✅ </span>
             {% else %}
-                <span class="badge-not-registered">Not Registered</span>
+                <span class="badge-not-registered">Not Registered </span>
             {% endif %}
         </td>
         <td>
@@ -48,7 +48,7 @@
         </td>
     </tr>
     {% empty %}
-        <tr><td colspan="6">No events found.</td></tr>
+        <tr><td colspan="5">No events found.</td></tr>
     {% endfor %}
 </table>
 
