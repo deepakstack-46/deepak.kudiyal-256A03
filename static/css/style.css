@@ -52,14 +52,14 @@ body {
     transform: translateY(-1px);
 }
 
-/* ===== CONTAINER ===== */
+/*CONTAINER*/
 .container {
     max-width: 1100px;
     margin: 35px auto;
     padding: 0 20px;
 }
 
-/* ===== ALERTS ===== */
+/*ALERT*/
 .alert {
     background-color: #d5f5e3;
     border-left: 4px solid #27ae60;
@@ -76,7 +76,7 @@ body {
     color: #922b21;
 }
 
-/* ===== TABLES ===== */
+/*TABLES*/
 table {
     width: 100%;
     border-collapse: collapse;
@@ -109,7 +109,7 @@ tr:hover {
     background-color: #faf5ff;
 }
 
-/* ===== BUTTONS ===== */
+/*BUTTONS*/
 .btn {
     display: inline-block;
     padding: 7px 16px;
@@ -147,7 +147,7 @@ tr:hover {
     color: white;
 }
 
-/* ===== PAGE HEADER ===== */
+/*PAGE HEADER*/
 .page-header {
     display: flex;
     justify-content: space-between;
@@ -160,7 +160,7 @@ tr:hover {
     font-size: 26px;
 }
 
-/* ===== BADGES ===== */
+/*BADGES*/
 .badge-registered {
     background-color: #d5f5e3;
     color: #1e8449;
@@ -178,7 +178,7 @@ tr:hover {
     font-size: 13px;
 }
 
-/* ===== BACK LINK ===== */
+/*BACK LINK*/
 .back-link {
     display: inline-block;
     margin-top: 20px;
@@ -192,7 +192,7 @@ tr:hover {
     text-decoration: underline;
 }
 
-/* ===== FORMS ===== */
+/*FORMS*/
 .form-container {
     background-color: white;
     padding: 35px;
@@ -253,7 +253,7 @@ tr:hover {
     gap: 15px;
 }
 
-/* ===== LOGIN/REGISTER ===== */
+/*LOGIN/REGISTER*/
 .login-wrapper {
     min-height: 85vh;
     display: flex;
@@ -317,7 +317,7 @@ tr:hover {
     text-decoration: underline;
 }
 
-/* Enhanced home cards */
+/*home cards*/
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -378,7 +378,7 @@ tr:hover {
     display: block;
 }
 
-/* ===== CONFIRM DELETE ===== */
+/*CONFIRM*/
 .confirm-box {
     background-color: white;
     padding: 35px;
@@ -483,4 +483,11 @@ tr:hover {
 .register-box p {
     color: #888;
     margin-bottom: 25px;
+}
+
+/*event-section*/
+.event-section-title {
+    color: #4a235a;
+    margin: 25px 0 10px;
+    font-size: 18px;
 }
