@@ -7,12 +7,6 @@
     <h2>{% if position %}✏️ Edit Position{% else %}🎯 Create Position{% endif %}</h2>
     <p>{% if position %}Update position name{% else %}Add a new position{% endif %}</p>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">

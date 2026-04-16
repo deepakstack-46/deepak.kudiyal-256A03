@@ -8,11 +8,6 @@
     <a href="{% url 'position_create' %}" class="btn btn-primary">+ Add Position</a>
 </div>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert">{{ message }}</div>
-    {% endfor %}
-{% endif %}
 
 <table>
     <tr>
