@@ -11,12 +11,6 @@
     </div>
 </div>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert">{{ message }}</div>
-    {% endfor %}
-{% endif %}
-
 {% for event in events %}
     <h3 style="color:#4a235a; margin:25px 0 10px;">{{ event.name }} ({{ event.date_start }} - {{ event.date_end }})</h3>
     <table>
