@@ -14,3 +14,6 @@ omit =
     */urls.py
     */__init__.py
     manage.py
+    happy_camp/wsgi.py
+    happy_camp/asgi.py
+    accounts/management/commands/seed_data.py
