@@ -7,12 +7,6 @@
     <h2>📋 Register for Event</h2>
     <p>{{ event.name }}</p>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
