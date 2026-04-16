@@ -9,12 +9,6 @@
         <h2>Create Account</h2>
         <p>Join Happy Camp as a member or volunteer</p>
 
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-
         <form method="POST">
             {% csrf_token %}
             <div class="form-two-col">
