@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -29,4 +33,4 @@ urlpatterns = [
     path('positions/', include('positions.urls')),
     path('events/', include('events.urls')),
     path('reports/', include('reports.urls'))
-]
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
