@@ -14,3 +14,4 @@ omit =
     */urls.py
     */__init__.py
     manage.py
+    reports/models.py
