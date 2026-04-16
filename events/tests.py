@@ -47,10 +47,7 @@ class EventTests(TestCase):
             time_end='17:00'
         )
 
-    # def test_event_list_loads(self):
-    #     self.client.login(username='member@test.com', password='Test1234')
-    #     response = self.client.get(reverse('event_list'))
-    #     self.assertEqual(response.status_code, 200)
+
 
     def test_event_create_admin(self):
         self.client.login(username='admin@test.com', password='Test1234')
@@ -77,15 +74,7 @@ class EventTests(TestCase):
         })
         self.assertEqual(response.status_code, 302)
 
-    # def test_event_unregister(self):
-    #     self.client.login(username='member@test.com', password='Test1234')
-    #     EventRegistration.objects.create(
-    #         user=self.member,
-    #         event=self.event,
-    #         position=self.position
-    #     )
-    #     response = self.client.post(reverse('event_unregister', args=[self.event.pk]))
-    #     self.assertEqual(response.status_code, 302)
+
 
     def test_event_delete_admin(self):
         self.client.login(username='admin@test.com', password='Test1234')

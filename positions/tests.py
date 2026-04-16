@@ -38,10 +38,6 @@ class PositionTests(TestCase):
         response = self.client.get(reverse('position_list'))
         self.assertEqual(response.status_code, 200)
 
-    # def test_position_list_member_redirect(self):
-    #     self.client.login(username='member@test.com', password='Test1234')
-    #     response = self.client.get(reverse('position_list'))
-    #     self.assertEqual(response.status_code, 302)
 
     def test_position_create(self):
         self.client.login(username='admin@test.com', password='Test1234')
@@ -50,12 +46,6 @@ class PositionTests(TestCase):
         })
         self.assertEqual(response.status_code, 302)
 
-    # def test_position_update(self):
-    #     self.client.login(username='admin@test.com', password='Test1234')
-    #     response = self.client.post(reverse('position_update', args=[self.position.pk]), {
-    #         'position_name': 'Updated Security'
-    #     })
-    #     self.assertEqual(response.status_code, 302)
 
     def test_position_delete(self):
         self.client.login(username='admin@test.com', password='Test1234')

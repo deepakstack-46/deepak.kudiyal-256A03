@@ -38,17 +38,7 @@ class AccountTests(TestCase):
         })
         self.assertEqual(response.status_code, 302)
 
-    # def test_login_invalid_user(self):
-    #     response = self.client.post(reverse('login'), {
-    #         'username': 'wrong@test.com',
-    #         'password': 'wrongpassword'
-    #     })
-    #     self.assertEqual(response.status_code, 200)
 
-    # def test_logout(self):
-    #     self.client.login(username='test@test.com', password='Test1234')
-    #     response = self.client.get(reverse('logout'))
-    #     self.assertEqual(response.status_code, 302)
 
     def test_register_new_user(self):
         response = self.client.post(reverse('register'), {
