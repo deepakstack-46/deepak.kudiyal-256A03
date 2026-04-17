@@ -13,6 +13,7 @@ COPY . .
 
 RUN pip install uv
 RUN uv sync --no-cache
+RUN uv run manage.py collectstatic --noinput
 
 EXPOSE 8000
 
